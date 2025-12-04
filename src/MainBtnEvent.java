@@ -2,13 +2,13 @@ public class MainBtnEvent {
 
     public static void listener(){
         MainFrameGenerator.MainButtons[0].addActionListener(e -> {
-            System.out.println("ilk butona basıldı");
+            LearnNewWord.generateFrame();
         });
         MainFrameGenerator.MainButtons[1].addActionListener(e -> {
-            System.out.println("2. butona basıldı");
+            LearnWrongWord.generateFrame();
         });
         MainFrameGenerator.MainButtons[2].addActionListener(e -> {
-            System.out.println("3. butona basıldı");
+            RepeatWord.generateFrame();
         });
         MainFrameGenerator.MainButtons[3].addActionListener(e -> {
             DayQuote.generateFrame();
