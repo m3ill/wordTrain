@@ -1,6 +1,6 @@
 public class MainBtnEvent {
 
-    public static void listener(){
+    public void listener(){
         MainFrameGenerator.MainButtons[0].addActionListener(e -> {
             LearnNewWord.generateFrame();
         });

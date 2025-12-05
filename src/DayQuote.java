@@ -21,7 +21,7 @@ public class DayQuote {
 
     public static void generateFrame(){
         frame = new JFrame("Günün Sözü");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(null);
         frame.setResizable(true);
         frame.add(getLabel());
