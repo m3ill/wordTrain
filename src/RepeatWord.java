@@ -24,11 +24,11 @@ public class RepeatWord extends SideFrameQuest {
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setBackground(new Color(224,230,235));
         frame.add(getSplashLabel());
-        frame.add(getWordLabel());
-        getButton();
+        //frame.add(setWordLabel());
+        /*getButton();
         for (int i = 0; i < buttons.length; i++) {
             frame.add(buttons[i]);
-        }
+        }*/
         frame.setVisible(true);
     }
 }

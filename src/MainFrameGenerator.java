@@ -1,10 +1,12 @@
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class MainFrameGenerator {
 
     private static JFrame frame;
-    private static ImageIcon icon;
+    private static ImageIcon splashIcon = new ImageIcon(MainFrameGenerator.class.getResource("/resources/Art.png"));
+    private static ImageIcon appIcon = new  ImageIcon(MainFrameGenerator.class.getResource("/resources/iconWolf.png"));
     public static JLabel splashLabel;
     private static int frameWidth = 600, frameHeight = 310;
     public static ImageIcon[] BTNIcons = {
@@ -22,15 +24,16 @@ public class MainFrameGenerator {
 
 
     //Sol üstteki logoyu boyutlandırma
-    private static void getResizedIcon(int IconWidth, int IconHeight) {
-        icon = new ImageIcon(MainFrameGenerator.class.getResource("/resources/Art.png"));
+    private static ImageIcon getResizedIcon(ImageIcon icon,int IconWidth, int IconHeight) {
         Image img = icon.getImage();
         img = img.getScaledInstance(IconWidth, IconHeight, Image.SCALE_SMOOTH);
         icon = new ImageIcon(img);
+        return icon;
     }
 
     //boyutlandırılan logoyu bir etiket içerisine koyma ve yazı ekleme üst bar tasarımı
     private static void getArtLabel(){
+        ImageIcon icon = getResizedIcon(splashIcon,80,80);
         splashLabel = new JLabel("Kelimeler, peşinden yılmadan koşan kurda teslim olur.",icon,JLabel.CENTER);
         splashLabel.setVerticalAlignment(SwingConstants.TOP);
         splashLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -66,6 +69,7 @@ public class MainFrameGenerator {
         frame.setLayout(null);
         frame.setResizable(false);
         frame.setSize(frameWidth,frameHeight);
+        frame.setIconImage(getResizedIcon(appIcon,200,200).getImage());
         frame.getContentPane().setBackground(new Color(224,230,235));
         frame.add(splashLabel);
         for (JButton btn : MainButtons){
@@ -76,7 +80,6 @@ public class MainFrameGenerator {
 
     //fream'i oluşturma
     public static void generateFrame(){
-        getResizedIcon(80,80);
         getArtLabel();
         getBtns();
         getFrame();

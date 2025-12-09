@@ -6,6 +6,7 @@ import java.util.jar.JarEntry;
 
 public class LearnNewWord extends SideFrameQuest {
 
+
     protected static JLabel getSplashLabel(){
         JLabel label=new JLabel("Yeni Kelime Öğren",MainFrameGenerator.BTNIcons[0],JLabel.CENTER);
         label.setBounds(0,0,frameWidth,80);
@@ -24,7 +25,7 @@ public class LearnNewWord extends SideFrameQuest {
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setBackground(new Color(224,230,235));
         frame.add(getSplashLabel());
-        frame.add(getWordLabel());
+        frame.add(setWordLabel());
         getButton();
         for (int i = 0; i < buttons.length; i++) {
             frame.add(buttons[i]);

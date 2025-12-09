@@ -42,18 +42,21 @@ public class CreateDB {
 
         String sql = "INSERT OR IGNORE INTO words (word,meaning) VALUES (? , ?)";
 
+
         try (Connection conn = connect(); PreparedStatement preStat = conn.prepareStatement(sql)){
             preStat.setString(1, word);
             preStat.setString(2, meaning);
             preStat.executeUpdate();
+
             System.out.println("Word added");
+
         }catch (SQLException e){
             System.err.println("Hata :"+e.getMessage());
         }
     }
 
     private static void PrintAllWords(){
-        String sql = "SELECT word,meaning FROM words ORDER BY id ASC";
+        String sql = "SELECT id,word,meaning,is_teached,wrong_counter FROM words ORDER BY id ASC";
         try (Connection conn = connect();
              Statement stat = conn.createStatement();
              ResultSet resultSet =stat.executeQuery(sql)){
@@ -63,9 +66,12 @@ public class CreateDB {
             }
             System.out.println("----- All words-----");
             while (resultSet.next()){
+                int id = resultSet.getInt("id");
                 String word = resultSet.getString("word");
                 String meaning = resultSet.getString("meaning");
-                System.out.println(word+"--->"+meaning);
+                int  is_teached = resultSet.getInt("is_teached");
+                int  wrong_counter = resultSet.getInt("wrong_counter");
+                System.out.println(id+"--->"+word+"--->"+meaning+"--->"+is_teached+"--->"+wrong_counter);
             }
             System.out.println("------------------\n");
 
@@ -127,6 +133,7 @@ public class CreateDB {
         }
         else {
             System.out.println("Database already exists");
+            PrintAllWords();
         }
 
     }

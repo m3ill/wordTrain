@@ -1,20 +1,61 @@
+import java.sql.*;
+
 public class Words {
-    protected static String[][] Word = new  String[5][2];
 
-    public static void getWords(){
-        // şuan test için böyle yapıldı sonradan veri tabanı eklenecek
-        Word[0][0] = "School";
-        Word[0][1] = "Okul";
-        Word[1][0] = "Hospital";
-        Word[1][1] = "Hastane";
-        Word[2][0] = "Word";
-        Word[2][1] = "Kelime";
-        Word[3][0] = "Computer";
-        Word[3][1] = "Bilgisayar";
-        Word[4][0] = "Engineer";
-        Word[4][1] = "Mühendis";
+    private static final String URL = "jdbc:sqlite:dictionary.db";
+    protected int wordId;
+    protected String word,meaning;
+    protected int isTeached,wrongCounter;
 
 
+    public Words(int wordId) {
+        this.wordId = wordId;
+        String query = "SELECT * FROM words WHERE id = ?";
+        try(Connection conn = connect();
+        PreparedStatement preStm = conn.prepareStatement(query);){
+            preStm.setInt(1, wordId);
+            ResultSet resultSet = preStm.executeQuery();
+            while (resultSet.next()){
+                word = resultSet.getString("word");
+                meaning = resultSet.getString("meaning");
+                isTeached = resultSet.getInt("is_teached");
+                wrongCounter = resultSet.getInt("wrong_counter");
+            }
+
+        }catch (Exception e ){
+            System.out.println("Error : "+ e.getMessage());
+        }
     }
+
+    private Connection connect(){
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(URL);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return conn;
+    }
+
+    protected String getWord(){
+        return word;
+    }
+    protected String getMeaning(){
+        return meaning;
+    }
+    protected int getIsTeached(){
+        return isTeached;
+    }
+    protected int getWrongCounter(){
+        return wrongCounter;
+    }
+    protected void setIsTeached(int isTeached){
+        this.isTeached = isTeached;
+    }
+    protected void setWrongCounter(int wrongCounter){
+        this.wrongCounter = wrongCounter;
+    }
+
+
 
 }
