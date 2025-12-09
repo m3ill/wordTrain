@@ -13,6 +13,8 @@ public class Words {
         Word[3][1] = "Bilgisayar";
         Word[4][0] = "Engineer";
         Word[4][1] = "Mühendis";
+
+
     }
 
 }
