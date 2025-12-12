@@ -2,37 +2,44 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Random;
 
-public class SideFrameQuest {
-
+public class SideFrameQuests {
     protected static final int  frameWidth = 400;
+    public static JFrame frame;
     protected static final int  frameHeight = 400;
-    private static Words answerWord;
-    private static Words[] chanceWord = new Words[4];
+    protected static JButton[] buttons = new JButton[4];
+    protected static Words[] chanceWord = new Words[4];
+    protected static Words answerWord;
     public static int AnswerID;
     public static int answerChoice;
-
-
-    protected static JButton[] buttons = new JButton[4];
-
-    private static void generateRndDiffAnswer(){
+    protected static void generateRndDiffAnswer(){
         Random rand = new Random();
-        boolean isDuplicate = false;
 
         for (int i = 0; i < 4; i++) {
-            int num = rand.nextInt(500);
-            for(int j = (i-1); j >= 0; j--){
-                if (num == chanceWord[j].wordId){
+            int num;
+            boolean isDuplicate;
+
+            do {
+                num = (rand.nextInt(499) + 1);
+                isDuplicate = false;
+
+                if (num == answerWord.wordId) {
                     isDuplicate = true;
+                    continue;
                 }
 
-            }
-            if (isDuplicate || num == answerWord.wordId){
-                i--;
-                continue;
-            }
-            chanceWord[i] = new Words(num);
-            System.out.println(chanceWord[i].wordId + chanceWord[i].word);
+                for(int j = 0; j < i; j++){
+                    if (chanceWord[j] != null && num == chanceWord[j].wordId){
+                        isDuplicate = true;
+                        break;
+                    }
+                }
+            } while (isDuplicate);
+
+            chanceWord[i] = new Words();
+            chanceWord[i].GenerateWord(num);
+            System.out.println("Oluşturulan Buton " + (i+1) + ": " + chanceWord[i].wordId + " " + chanceWord[i].word);
         }
+
     }
     protected static void getButton(){
         generateRndDiffAnswer();
@@ -60,16 +67,28 @@ public class SideFrameQuest {
         buttons[2].setBounds(20,300,150,40);
         buttons[3].setBounds(220,300,150,40);
     }
-
-    private static void getWordToLabel(){
+    private static void getWordToLabel(int i){
         Random number = new Random();
         int RandNum = number.nextInt(500);
         AnswerID = RandNum;
-        answerWord = new Words(AnswerID);
+        if (i == 0)
+            answerWord = new LearnWords(AnswerID);
+        if (i == 1){
+            answerWord = new WrongWords();
+            AnswerID = answerWord.wordId;
+        }
+        if (i == 2){
+            answerWord = new RepeatWord();
+            AnswerID = answerWord.wordId;
+        }
+
         System.out.println("AnswerID: " + AnswerID + "word : " + answerWord.word);
     }
-    protected static JLabel setWordLabel(){
-        getWordToLabel();
+
+    //i hangi quest çağırdığını temsil ediyor
+    //i = 0 learnNewWord ; i = 1 LearnWrongWord ; i = 2 RepeatWord;
+    protected static JLabel setWordLabel(int i){
+        getWordToLabel(i);
         JLabel label = new JLabel(answerWord.word, JLabel.CENTER);
         label.setBounds(80,80,(frameWidth-160),80);
         label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
@@ -78,5 +97,4 @@ public class SideFrameQuest {
         label.setBackground(new Color(224,230,235));
         return label;
     }
-
 }

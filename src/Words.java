@@ -7,12 +7,22 @@ public class Words {
     protected String word,meaning;
     protected int isTeached,wrongCounter;
 
+    protected Connection connect(){
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(URL);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return conn;
+    }
 
-    public Words(int wordId) {
-        this.wordId = wordId;
+    public Words(){}
+    protected void GenerateWord(int WordId){
+        this.wordId = WordId;
         String query = "SELECT * FROM words WHERE id = ?";
         try(Connection conn = connect();
-        PreparedStatement preStm = conn.prepareStatement(query);){
+            PreparedStatement preStm = conn.prepareStatement(query);){
             preStm.setInt(1, wordId);
             ResultSet resultSet = preStm.executeQuery();
             while (resultSet.next()){
@@ -27,35 +37,9 @@ public class Words {
         }
     }
 
-    private Connection connect(){
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(URL);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-        return conn;
+    public void setWrongCounter(boolean b) {
     }
 
-    protected String getWord(){
-        return word;
+    public void setIsTeached(boolean b) {
     }
-    protected String getMeaning(){
-        return meaning;
-    }
-    protected int getIsTeached(){
-        return isTeached;
-    }
-    protected int getWrongCounter(){
-        return wrongCounter;
-    }
-    protected void setIsTeached(int isTeached){
-        this.isTeached = isTeached;
-    }
-    protected void setWrongCounter(int wrongCounter){
-        this.wrongCounter = wrongCounter;
-    }
-
-
-
 }

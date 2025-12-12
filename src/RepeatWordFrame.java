@@ -1,10 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 
-public class LearnWrongWord extends SideFrameQuest {
+public class RepeatWordFrame extends SideFrameQuests{
 
     protected static JLabel getSplashLabel(){
-        JLabel label=new JLabel("Yanlış Kelimeler",MainFrameGenerator.BTNIcons[1],JLabel.CENTER);
+        JLabel label=new JLabel("Tekrar et",MainFrameGenerator.BTNIcons[2],JLabel.CENTER);
         label.setBounds(0,0,frameWidth,80);
         label.setOpaque(true);
         label.setBackground(new Color(224,230,235));
@@ -14,7 +14,7 @@ public class LearnWrongWord extends SideFrameQuest {
     }
 
     protected static void generateFrame(){
-        JFrame frame = new JFrame("Yanlış Kelimeler");
+        frame = new JFrame("Tekrar et");
         frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.setLayout(null);
         frame.setSize(frameWidth,frameWidth);
@@ -22,12 +22,11 @@ public class LearnWrongWord extends SideFrameQuest {
         frame.setLocationRelativeTo(null);
         frame.getContentPane().setBackground(new Color(224,230,235));
         frame.add(getSplashLabel());
-        //frame.add(setWordLabel());
-        /*getButton();
+        frame.add(setWordLabel(2));
+        getButton();
         for (int i = 0; i < buttons.length; i++) {
             frame.add(buttons[i]);
-        }*/
+        }
         frame.setVisible(true);
-
     }
 }

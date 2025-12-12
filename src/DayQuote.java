@@ -8,13 +8,11 @@ public class DayQuote {
 
 
     private static JLabel getLabel(){
-        String Quote = "nereye dönersen dön götün hep arkandadır";
-        JLabel label = new JLabel(Quote,MainFrameGenerator.BTNIcons[3],JLabel.CENTER);
+        Quotes quote = new Quotes();
+        JLabel label = new JLabel(quote.sentence,MainFrameGenerator.BTNIcons[3],JLabel.CENTER);
         Dimension dim = label.getPreferredSize();
         frameWidth = dim.width+30;
-        System.out.println(frameWidth);
         frameHeight = dim.height+35;
-        System.out.println(frameHeight);
         label.setBounds(0,0,dim.width,dim.height);
         return label;
     }
