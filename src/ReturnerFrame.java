@@ -42,6 +42,14 @@ public class ReturnerFrame {
     }
 
     public static void listener(int k){
+
+        for (var al : button[0].getActionListeners()) {
+            button[0].removeActionListener(al);
+        }
+        for (var al : button[1].getActionListeners()) {
+            button[1].removeActionListener(al);
+        }
+        
         button[0].addActionListener(e -> {
             frame.dispose();
             if (k == 0){

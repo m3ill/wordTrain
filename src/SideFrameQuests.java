@@ -26,7 +26,6 @@ public class SideFrameQuests {
                     isDuplicate = true;
                     continue;
                 }
-
                 for(int j = 0; j < i; j++){
                     if (chanceWord[j] != null && num == chanceWord[j].wordId){
                         isDuplicate = true;

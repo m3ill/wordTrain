@@ -12,11 +12,17 @@ public class SideFrameQuestListener extends SideFrameQuests{
                     for (int j = 0 ; j < buttons.length ; j++){
                         if (j == answerChoice){
                             System.out.println("Doğru butona bastınız");
-                            buttons[answerChoice].setBackground(Color.green);
+                            buttons[answerChoice].setContentAreaFilled(true);
+                            buttons[answerChoice].setBorderPainted(false);
+                            buttons[answerChoice].setOpaque(true);
+                            buttons[answerChoice].setBackground(Color.GREEN);
                             buttons[answerChoice].setEnabled(false);
                             continue;
                         }
-                        buttons[j].setBackground(Color.red);
+                        buttons[j].setContentAreaFilled(true);
+                        buttons[j].setBorderPainted(false);
+                        buttons[j].setOpaque(true);
+                        buttons[j].setBackground(Color.RED);
                         buttons[j].setEnabled(false);
                         answerWord.setWrongCounter(false);
                         answerWord.setIsTeached(true);
@@ -31,11 +37,17 @@ public class SideFrameQuestListener extends SideFrameQuests{
                     System.out.println("yanlış butona bastınız");
                     for (int j = 0 ; j < buttons.length ; j++){
                         if (j == answerChoice){
+                            buttons[j].setContentAreaFilled(true);
+                            buttons[j].setBorderPainted(false);
+                            buttons[j].setOpaque(true);
                             buttons[j].setBackground(Color.orange);
                             buttons[j].setEnabled(false);
                             answerWord.setWrongCounter(true);
                             continue;
                         }
+                        buttons[j].setContentAreaFilled(true);
+                        buttons[j].setBorderPainted(false);
+                        buttons[j].setOpaque(true);
                         buttons[j].setBackground(Color.red);
                         buttons[j].setEnabled(false);
                     }
