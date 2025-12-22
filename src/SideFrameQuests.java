@@ -5,6 +5,7 @@ import java.util.Random;
 public class SideFrameQuests {
     protected static final int  frameWidth = 400;
     public static JFrame frame;
+    protected static JLabel label;
     protected static final int  frameHeight = 400;
     protected static JButton[] buttons = new JButton[4];
     protected static Words[] chanceWord = new Words[4];
@@ -88,7 +89,7 @@ public class SideFrameQuests {
     //i = 0 learnNewWord ; i = 1 LearnWrongWord ; i = 2 RepeatWord;
     protected static JLabel setWordLabel(int i){
         getWordToLabel(i);
-        JLabel label = new JLabel(answerWord.word, JLabel.CENTER);
+        label = new JLabel(answerWord.word, JLabel.CENTER);
         label.setBounds(80,80,(frameWidth-160),80);
         label.setBorder(BorderFactory.createLineBorder(Color.GRAY));
         label.setFont(new Font("Segoe UI",Font.BOLD,16));

@@ -37,6 +37,10 @@ public class Words {
         }
     }
 
+    protected void setWord(String word){
+        this.word = word;
+    }
+
     public void setWrongCounter(boolean b) {
     }
 

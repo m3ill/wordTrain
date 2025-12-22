@@ -1,9 +1,14 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.sql.SQLOutput;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class SideFrameQuestListener extends SideFrameQuests{
+    private static void waiter(){
+
+    }
+
     public static int returner = 0;
     public static void listener(int k){
         for (int i = 0 ; i < buttons.length ; i++){
@@ -12,6 +17,8 @@ public class SideFrameQuestListener extends SideFrameQuests{
                     for (int j = 0 ; j < buttons.length ; j++){
                         if (j == answerChoice){
                             System.out.println("Doğru butona bastınız");
+                            label.setText("DOĞRU");
+                            label.setForeground(Color.GREEN);
                             buttons[answerChoice].setContentAreaFilled(true);
                             buttons[answerChoice].setBorderPainted(false);
                             buttons[answerChoice].setOpaque(true);
@@ -27,7 +34,15 @@ public class SideFrameQuestListener extends SideFrameQuests{
                         answerWord.setWrongCounter(false);
                         answerWord.setIsTeached(true);
                     }
-                    ReturnerFrame.generateFrame(k);
+
+                    //3 saniye bekleme
+                    ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                    System.out.println("Görev zamanlandı...");
+                    scheduler.schedule(() -> {
+                        ReturnerFrame.generateFrame(k);
+                    }, 3, TimeUnit.SECONDS);
+                    scheduler.shutdown();
+
                 });
 
             }
@@ -37,6 +52,8 @@ public class SideFrameQuestListener extends SideFrameQuests{
                     System.out.println("yanlış butona bastınız");
                     for (int j = 0 ; j < buttons.length ; j++){
                         if (j == answerChoice){
+                            label.setText("YANLIŞ");
+                            label.setForeground(Color.RED);
                             buttons[j].setContentAreaFilled(true);
                             buttons[j].setBorderPainted(false);
                             buttons[j].setOpaque(true);
@@ -52,7 +69,13 @@ public class SideFrameQuestListener extends SideFrameQuests{
                         buttons[j].setEnabled(false);
                     }
                     int returner = 1;
-                    ReturnerFrame.generateFrame(k);
+                    ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+                    System.out.println("Görev zamanlandı...");
+                    scheduler.schedule(() -> {
+                        ReturnerFrame.generateFrame(k);
+                    }, 3, TimeUnit.SECONDS);
+                    scheduler.shutdown();
+
                 });
 
             }
