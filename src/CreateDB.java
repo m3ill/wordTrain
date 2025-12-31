@@ -1,19 +1,16 @@
-import org.w3c.dom.Text;
-
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 
 public class CreateDB {
-    private static final String txtPath = CreateDB.class.getResource("/resources/words.txt").getPath();
-
     private static final String URL = "jdbc:sqlite:dictionary.db";
 
     private static Connection connect(){
         Connection conn = null;
         try{
+            Class.forName("org.sqlite.JDBC");
             conn = DriverManager.getConnection(URL);
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e ) {
             System.err.println("Hata :"+e.getMessage());
         }
         return conn;
@@ -82,26 +79,23 @@ public class CreateDB {
 
     private static void txtToDb(){
         int wordCounter = 0;
-        try(BufferedReader br = new BufferedReader(new FileReader(txtPath))){
-            String line;
-            System.out.println("Reading file");
-            while ((line = br.readLine()) != null) {
-                if (line.trim().isEmpty() || !line.contains(" "))
-                    continue;
+        InputStream is = CreateDB.class.getResourceAsStream("/words.txt");
+        if (is == null){
+            System.err.println("ERROR : words.txt not found");
+        }
 
-                String[] parts = line.split(" ",2);
-                if (parts.length == 2){
-                    String word = parts[0].trim();
-                    String meaning = parts[1].trim();
-                    addWord(word,meaning);
-                    wordCounter++;
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(is,StandardCharsets.UTF_8))){
+            String line;
+            while((line = reader.readLine()) != null){
+                String[] words = line.trim().split("\\s+");
+                if (words.length >= 2){
+                    addWord(words[0], words[1]);
                 }
             }
-            System.out.println("Word Counter: " + wordCounter);
-
         }catch (Exception e){
-            System.err.println("Hata : "+e.getMessage());
+            System.err.println("Hata :" + e.getMessage());
         }
+
     }
 
     private static boolean isEmptyDB(){

@@ -1,11 +1,13 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.Objects;
 
 public class CreateDbQuote {
     // Sadece Klasör Adını Düzeltin, Eğik Çizgiyi Kaldırın
-    private static final String txtPath = Objects.requireNonNull(CreateDbQuote.class.getClassLoader().getResource("resources/DailyQuotes.txt")).getPath();
     private static final String URL = "jdbc:sqlite:quotes.db";
 
     private static Connection connect(){
@@ -67,31 +69,21 @@ public class CreateDbQuote {
     }
     private static void txtToDb(){
         int sentenceCounter = 0;
-        try(BufferedReader br = new BufferedReader(new FileReader(txtPath))){
-            String line;
-            System.out.println("Reading file");
 
-            // Başlık satırını atlamak için ilk satırı oku
-            br.readLine();
-
-            while ((line = br.readLine()) != null) {
-                String cleanedLine = line.trim();
-                if (cleanedLine.isEmpty())
-                    continue;
-
-                // Sondaki "-" işaretini kaldır (Gerekirse)
-                if (cleanedLine.endsWith("-")) {
-                    cleanedLine = cleanedLine.substring(0, cleanedLine.length() - 1);
-                }
-
-                addSentence(cleanedLine); // Temizlenmiş satırı ekle
-                sentenceCounter++;
-            }
-            System.out.println("Word Counter: " + sentenceCounter);
-
-        }catch (Exception e){
-            System.err.println("3Hata : "+e.getMessage());
+        InputStream is = CreateDbQuote.class.getResourceAsStream("/DailyQuotes.txt");
+        if (is == null){
+            System.err.println("ERROR : quotes.txt not found");
         }
+
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(is, StandardCharsets.UTF_8))){
+            String line;
+            while((line = reader.readLine()) != null){
+                addSentence(line);
+            }
+        }catch (Exception e){
+            System.err.println("hata : " + e.getMessage());
+        }
+
     }
 
     private static boolean isEmptyDB(){
