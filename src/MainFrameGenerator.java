@@ -17,9 +17,9 @@ public class MainFrameGenerator {
     };
     public static JButton[] MainButtons = {
             new JButton("Yeni Kelime Öğren",BTNIcons[0]),
-            new JButton("Yanlış kelimeler",BTNIcons[1]),
+            new JButton("Yanlış Kelimeler",BTNIcons[1]),
             new JButton("Tekrar Et",BTNIcons[2]),
-            new JButton("Günün sözü",BTNIcons[3]),
+            new JButton("Sözler",BTNIcons[3]),
     };
 
 

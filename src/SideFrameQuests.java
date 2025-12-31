@@ -59,7 +59,6 @@ public class SideFrameQuests {
         String btnStr = chanceWord[answerChoice].meaning;
         btnStr = btnStr.replace("_" ," ");
         buttons[answerChoice].setText(btnStr);
-        buttons[answerChoice].setBackground(Color.BLUE);
 
         //butonların konumları ayarlanıyor
         buttons[0].setBounds(20,200,150,40);
