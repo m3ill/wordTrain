@@ -6,18 +6,6 @@ public class LearnWords extends Words{
         super();
         GenerateWord(wordId);
     }
-    private void changeData(){
-        String query = "UPDATE words SET is_teached = ?, wrong_counter = ? WHERE id = ?";
-        try(Connection conn = connect();
-        PreparedStatement preStmt = conn.prepareStatement(query);){
-            preStmt.setInt(1, isTeached);
-            preStmt.setInt(2, wrongCounter);
-            preStmt.setInt(3, wordId);
-            preStmt.executeUpdate();
-        } catch (Exception e) {
-            System.out.println("Error : "+ e.getMessage());
-        }
-    }
 
     protected String getWord(){
         return word;

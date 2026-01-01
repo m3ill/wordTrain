@@ -30,7 +30,23 @@ public class WrongWords extends Words{
             int randAnsID = rand.nextInt(list.size());
             super.GenerateWord(list.get(randAnsID));
         }
+    }
 
+    @Override
+    public void setIsTeached(boolean b) {
+        if (b)
+            this.isTeached = 1;
+        else
+            this.isTeached = 0;
+        changeData();
+    }
+    @Override
+    public void setWrongCounter(boolean b) {
+        if (b)
+            this.wrongCounter++;
+        else
+            this.wrongCounter = 0;
+        changeData();
     }
 
 }

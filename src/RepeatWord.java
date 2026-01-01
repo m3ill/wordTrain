@@ -30,7 +30,23 @@ public class RepeatWord extends Words{
             int randAnsID = rand.nextInt(list.size());
             super.GenerateWord(list.get(randAnsID));
         }
+    }
 
+    @Override
+    public void setIsTeached(boolean isTeached) {
+        if (isTeached)
+            this.isTeached = 1;
+        else
+            this.isTeached = 0;
+        changeData();
+    }
+    @Override
+    public void setWrongCounter(boolean isWrong) {
+        if (isWrong)
+            this.wrongCounter++;
+        else
+            this.wrongCounter = 0;
+        changeData();
     }
 
 

@@ -24,6 +24,16 @@ public class SideFrameQuestListener extends SideFrameQuests{
                             buttons[answerChoice].setOpaque(true);
                             buttons[answerChoice].setBackground(Color.GREEN);
                             buttons[answerChoice].setEnabled(false);
+                            if (k == 0){
+                                answerWord.setIsTeached(true);
+                                answerWord.setWrongCounter(false);
+                            }
+                            else if(k == 1){
+                                answerWord.setWrongCounter(false);
+                                answerWord.setIsTeached(true);
+                            }else if(k == 2){
+                                answerWord.setIsTeached(true);
+                            }
                             continue;
                         }
                         buttons[j].setContentAreaFilled(true);
@@ -31,8 +41,8 @@ public class SideFrameQuestListener extends SideFrameQuests{
                         buttons[j].setOpaque(true);
                         buttons[j].setBackground(Color.RED);
                         buttons[j].setEnabled(false);
-                        answerWord.setWrongCounter(false);
-                        answerWord.setIsTeached(true);
+
+
                     }
 
                     //3 saniye bekleme
@@ -59,6 +69,7 @@ public class SideFrameQuestListener extends SideFrameQuests{
                             buttons[j].setOpaque(true);
                             buttons[j].setBackground(Color.orange);
                             buttons[j].setEnabled(false);
+                            answerWord.setIsTeached(false);
                             answerWord.setWrongCounter(true);
                             continue;
                         }

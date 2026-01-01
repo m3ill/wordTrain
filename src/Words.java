@@ -36,14 +36,28 @@ public class Words {
             System.out.println("Error : "+ e.getMessage());
         }
     }
+    protected void changeData(){
+        String query = "UPDATE words SET is_teached = ?, wrong_counter = ? WHERE id = ?";
+        try(Connection conn = connect();
+            PreparedStatement preStmt = conn.prepareStatement(query);){
+            preStmt.setInt(1, isTeached);
+            preStmt.setInt(2, wrongCounter);
+            preStmt.setInt(3, wordId);
+            preStmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Error : "+ e.getMessage());
+        }
+    }
 
     protected void setWord(String word){
         this.word = word;
     }
 
     public void setWrongCounter(boolean b) {
+
     }
 
     public void setIsTeached(boolean b) {
+
     }
 }
